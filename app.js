@@ -42,67 +42,47 @@
   document.querySelector(".quote-form")?.addEventListener("submit", (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const data = new FormData(form);
-    const fileInput = form.querySelector("input[type='file']");
-    const files = Array.from(fileInput.files || []).map((file) => file.name);
-    const values = Object.fromEntries(data.entries());
-    const body = [
-      "NEW CURIOUS LAYER PROJECT REQUEST",
-      "",
-      `Name: ${values.name || "Not provided"}`,
-      `Email: ${values.email || "Not provided"}`,
-      `Project type: ${values["project-type"] || "Not provided"}`,
-      `Quantity: ${values.quantity || "Not provided"}`,
-      `Material preference: ${values.material || "Not specified"}`,
-      `Colour preference: ${values.colour || "Not specified"}`,
-      `Desired dimensions: ${values.dimensions || "Not specified"}`,
-      `Desired deadline: ${values.deadline || "Not specified"}`,
-      "",
-      "Project details:",
-      values["project-details"] || "Not provided",
-      "",
-      `Selected reference files: ${files.length ? files.join(", ") : "None"}`,
-      "Please attach the selected files to this email before sending."
-    ].join("\n");
-    const recipient = config.contact?.email || "Curiouslayer.official@gmail.com";
-    const subject = `Project request — ${values["project-type"] || "Curious Layer"}`;
-    const mailtoHref = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    // Use a hidden <a> click — most reliable cross-browser approach
-    const link = document.createElement("a");
-    link.href = mailtoHref;
-    link.style.display = "none";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    // Show fallback panel so the user can copy & send manually if no email client opens
-    let fallback = form.querySelector(".email-fallback");
-    if (!fallback) {
-      fallback = document.createElement("div");
-      fallback.className = "email-fallback full-field";
-      fallback.innerHTML = `
-        <p class="fallback-intro">If your email app didn't open, copy the details below and paste them into a new email to <strong>${recipient}</strong>.</p>
-        <textarea class="fallback-body" readonly rows="10"></textarea>
-        <button type="button" class="button button-outline fallback-copy">Copy to clipboard</button>
-      `;
-      const submitBtn = form.querySelector("button[type='submit']");
-      form.insertBefore(fallback, submitBtn);
-
-      fallback.querySelector(".fallback-copy").addEventListener("click", () => {
-        const ta = fallback.querySelector(".fallback-body");
-        ta.select();
-        ta.setSelectionRange(0, 99999);
-        navigator.clipboard?.writeText(ta.value).catch(() => document.execCommand("copy"));
-        fallback.querySelector(".fallback-copy").textContent = "Copied!";
-        setTimeout(() => { fallback.querySelector(".fallback-copy").textContent = "Copy to clipboard"; }, 2000);
-      });
-    }
-    fallback.querySelector(".fallback-body").value =
-      `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
-    fallback.style.display = "";
-
+    const formData = new FormData(form);
+    const values = Object.fromEntries(formData.entries());
+    const submitBtn = form.querySelector("button[type='submit']");
     const message = form.querySelector(".form-note");
-    message.textContent = "Email app opening… If it didn't launch, use the copy panel above to send manually.";
+    const recipient = config.contact?.email || "Curiouslayer.official@gmail.com";
+
+    // FormSubmit control fields
+    formData.append("_subject", `New project request — ${values["project-type"] || "Curious Layer"}`);
+    formData.append("_captcha", "false");
+    formData.append("_template", "table");
+    formData.append("_replyto", values.email || "");
+
+    // Disable button while sending
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+    message.textContent = "Sending your request, please wait…";
+
+    fetch(`https://formsubmit.co/ajax/${recipient}`, {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" }
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success === "true" || result.success === true) {
+          // Replace form content with a success screen
+          form.innerHTML = `
+            <div class="form-success full-field">
+              <div class="success-icon">✓</div>
+              <h3>Request sent!</h3>
+              <p>We've received your project brief and will reply to <strong>${values.email || "you"}</strong> soon.</p>
+              <p class="success-sub">Curious Layer · Chennai, India</p>
+            </div>`;
+        } else {
+          throw new Error("Send failed");
+        }
+      })
+      .catch(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "Send request <span>↗</span>";
+        message.textContent = "Something went wrong. Please try again or email us directly at " + recipient;
+      });
   });
 })();
