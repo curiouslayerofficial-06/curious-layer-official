@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Estimate the cost of your 3D print — material, dimensions, infill and quantity. Curious Layer, Chennai." />
+    <meta name="theme-color" content="#fffdf7" />
+    <title>Print Cost Estimator — Curious Layer</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css?v=20261025-2" />
+  </head>
+  <body>
+    <a class="sr-only" href="#main">Skip to content</a>
+    <div class="site-shell estimator-page-shell">
+      <div class="utility-bar"><span>Curious Layer · Print Cost Estimator</span><span class="utility-status"><i></i> Estimate instantly</span></div>
+      <header class="site-header">
+        <a class="brand" href="index.html" aria-label="Curious Layer home"><img class="brand-image" data-brand-logo src="assets/brand/curious-layer-logo.png" alt="" /><span class="brand-name">CURIOUS <em>LAYER</em></span></a>
+        <nav class="main-nav" aria-label="Primary navigation">
+          <a href="index.html#shop">Explore</a><a href="index.html#services">Services</a><a href="index.html#lab">The Curious Lab</a><a href="products.html">Product suggestions</a><a href="estimator.html" aria-current="page">Cost estimator</a><a href="about.html">About</a>
+        </nav>
+        <div class="header-actions"><a class="button button-small" href="index.html#quote">Start a project <span>↗</span></a><button class="menu-toggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button></div>
+      </header>
+
+      <main id="main">
+        <!-- Hero -->
+        <section class="estimator-hero">
+          <p class="eyebrow"><span></span> Print Cost Estimator</p>
+          <h1>How much will your<br /><i>print cost?</i></h1>
+          <p>Get a rough estimate based on your material, dimensions and quantity. Final quotes are confirmed per job.</p>
+        </section>
+
+        <!-- Estimator -->
+        <section class="estimator-section">
+          <div class="estimator-card">
+
+            <!-- Material selector -->
+            <div>
+              <p class="est-label">Select material</p>
+              <div class="material-pills" id="est-pills" role="group" aria-label="Material selector"></div>
+            </div>
+
+            <!-- Dimensions + Quantity -->
+            <div class="est-inputs-row">
+              <div class="est-field">
+                <label for="est-l">Length (mm)</label>
+                <input type="number" id="est-l" min="1" max="256" value="50" inputmode="numeric" />
+              </div>
+              <div class="est-field">
+                <label for="est-w">Width (mm)</label>
+                <input type="number" id="est-w" min="1" max="256" value="50" inputmode="numeric" />
+              </div>
+              <div class="est-field">
+                <label for="est-h">Height (mm)</label>
+                <input type="number" id="est-h" min="1" max="256" value="50" inputmode="numeric" />
+              </div>
+              <div class="est-field">
+                <label for="est-qty">Quantity</label>
+                <input type="number" id="est-qty" min="1" max="100" value="1" inputmode="numeric" />
+              </div>
+            </div>
+
+            <!-- Infill slider -->
+            <div class="est-slider-wrapper">
+              <div class="est-slider-top">
+                <span class="est-label" style="margin:0">Infill density</span>
+                <span class="est-slider-val" id="est-infill-val">20%</span>
+              </div>
+              <input type="range" class="est-slider" id="est-infill" min="10" max="100" value="20" step="5" aria-label="Infill density percentage" />
+              <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.05em"><span>10% Light</span><span>100% Solid</span></div>
+            </div>
+
+            <!-- Cost output -->
+            <div class="est-output" aria-live="polite" aria-label="Estimated cost">
+              <div class="est-output-row"><span>Estimated weight</span><b id="est-out-weight">—</b></div>
+              <div class="est-output-row"><span>Material cost</span><b id="est-out-mat">—</b></div>
+              <div class="est-output-row"><span>Power &amp; processing</span><b id="est-out-power">—</b></div>
+              <div class="est-total-row">
+                <span class="est-total-label">Estimated range</span>
+                <span class="est-total-amount" id="est-out-total">Enter dimensions</span>
+              </div>
+              <p class="est-disclaimer">This is a rough estimate. Actual cost is confirmed after reviewing your file.</p>
+            </div>
+
+            <!-- Material info panel -->
+            <div class="est-info-panel" id="est-info-panel" hidden>
+              <div class="est-info-name" id="est-info-name">
+                PLA <span class="mask-badge no" id="est-info-mask">No mask needed</span>
+              </div>
+              <div class="est-info-temps">
+                <span>🌡 Nozzle: <strong id="est-info-nozzle">—</strong></span>
+                <span>🛏 Bed: <strong id="est-info-bed">—</strong></span>
+              </div>
+              <div class="est-info-props"><strong>Key properties</strong><span id="est-info-props">—</span></div>
+              <div class="est-info-apps"><strong>Applications</strong><span id="est-info-apps">—</span></div>
+            </div>
+
+          </div><!-- /estimator-card -->
+        </section>
+
+        <!-- CTA -->
+        <section class="estimator-cta">
+          <p class="eyebrow"><span></span> Ready to go further?</p>
+          <p>Share your file and requirements and we'll send back a confirmed quote with material options, timeline and price.</p>
+          <a class="button button-primary" href="index.html#quote">Start a project <span>↗</span></a>
+        </section>
+      </main>
+
+      <footer class="site-footer"><div class="footer-top"><a class="brand" href="index.html"><img class="brand-image" data-brand-logo src="assets/brand/curious-layer-logo.png" alt="" /><span class="brand-name">CURIOUS <em>LAYER</em></span></a><p>DESIGN · PRINT · TEST · LEARN</p></div><div class="footer-main"><div><p class="footer-label">FOLLOW THE BUILD</p><a data-youtube href="https://www.youtube.com/@CuriousLayer06" target="_blank" rel="noopener noreferrer">YouTube ↗</a><a data-instagram href="https://www.instagram.com/curiouslayer_official/" target="_blank" rel="noopener noreferrer">Instagram ↗</a><a data-makerworld href="https://makerworld.com/en/@curiouslayer" target="_blank" rel="noopener noreferrer">MakerWorld ↗</a></div><div><p class="footer-label">START A CONVERSATION</p><a href="mailto:Curiouslayer.official@gmail.com" data-email>Curiouslayer.official@gmail.com</a><span class="footer-location">CHENNAI, TAMIL NADU, INDIA</span></div><div><p class="footer-label">INFORMATION</p><a href="products.html">Product suggestions</a><a href="estimator.html">Cost estimator</a><a href="about.html">About Curious Layer</a><a href="legal.html#privacy">Privacy</a><a href="legal.html">Policies &amp; terms</a></div></div><div class="footer-bottom"><span>© 2026 CURIOUS LAYER. ALL RIGHTS RESERVED.</span><a href="index.html">Back to Curious Layer ↗</a></div></footer>
+    </div>
+
+    <script src="brand.config.js?v=20261025-2"></script><script src="app.js?v=20261025-2"></script><script src="estimator.js"></script>
+  </body>
+</html>
