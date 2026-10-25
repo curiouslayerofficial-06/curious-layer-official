@@ -4,12 +4,12 @@
   // ── Material data ─────────────────────────────────────────────────────────
   var MATERIALS = {
     ABS:   { density: 1.04, price: 1500, nozzle: '240–280 °C', bed: '90–110 °C', mask: true,  props: 'Tough, impact-resistant, heat-resistant, post-processable', apps: 'Automotive parts, enclosures, functional mechanical prototypes' },
-    PLA:   { density: 1.24, price: 1250, nozzle: '180–220 °C', bed: '20–60 °C',  mask: false, props: 'Easy to print, biodegradable, low warping, brittle', apps: 'Concept models, visual prototypes, educational models' },
-    TPU:   { density: 1.21, price: 1500, nozzle: '260–310 °C', bed: '90–110 °C', mask: true,  props: 'Extremely strong, heat-resistant, transparent, tough to print', apps: 'Load-bearing parts, electrical housings, high-strength prototypes' },
-    ASA:   { density: 1.07, price: 1800, nozzle: '240–260 °C', bed: '70–90 °C',  mask: true,  props: 'Flexible, abrasion-resistant, moisture-sensitive', apps: 'Gears, hinges, wear-resistant mechanical parts' },
-    PETG:  { density: 1.27, price: 1500, nozzle: '220–250 °C', bed: '70–90 °C',  mask: true,  props: 'Strong, flexible, chemical-resistant, water-resistant', apps: 'Food containers, mechanical parts, transparent components' },
-    PC:    { density: 1.20, price: 1500, nozzle: '260–310 °C', bed: '90–110 °C', mask: true,  props: 'Extremely strong, heat-resistant, transparent', apps: 'Load-bearing, electrical housings, high-strength' },
-    Nylon: { density: 1.15, price: 1800, nozzle: '240–280 °C', bed: '70–110 °C', mask: true,  props: 'Extremely stiff, lightweight, high strength-to-weight', apps: 'Structural components, drone frames, automotive brackets' }
+    PLA:   { density: 1.24, price: 1200, nozzle: '180–220 °C', bed: '20–60 °C',  mask: false, props: 'Easy to print, biodegradable, low warping, brittle', apps: 'Concept models, visual prototypes, educational models' },
+    TPU:   { density: 1.21, price: 2000, nozzle: '260–310 °C', bed: '90–110 °C', mask: true,  props: 'Extremely strong, heat-resistant, transparent, tough to print', apps: 'Load-bearing parts, electrical housings, high-strength prototypes' },
+    ASA:   { density: 1.07, price: 2000, nozzle: '240–260 °C', bed: '70–90 °C',  mask: true,  props: 'Flexible, abrasion-resistant, moisture-sensitive', apps: 'Gears, hinges, wear-resistant mechanical parts' },
+    PETG:  { density: 1.27, price: 1400, nozzle: '220–250 °C', bed: '70–90 °C',  mask: true,  props: 'Strong, flexible, chemical-resistant, water-resistant', apps: 'Food containers, mechanical parts, transparent components' },
+    PC:    { density: 1.20, price: 3500, nozzle: '260–310 °C', bed: '90–110 °C', mask: true,  props: 'Extremely strong, heat-resistant, transparent', apps: 'Load-bearing, electrical housings, high-strength' },
+    Nylon: { density: 1.15, price: 3500, nozzle: '240–280 °C', bed: '70–110 °C', mask: true,  props: 'Extremely stiff, lightweight, high strength-to-weight', apps: 'Structural components, drone frames, automotive brackets' }
   };
 
   var MATERIAL_ORDER = ['ABS', 'PLA', 'TPU', 'ASA', 'PETG', 'PC', 'Nylon'];
